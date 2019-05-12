@@ -1,8 +1,7 @@
 <template>
     <div>
         <div class="login login-box">
-            <!--<img class="login login-title" src="../assets/imgs/logo.png">-->
-            <h1 class="logo">TrackR</h1>
+            <h1 class="logo">Cards Against</h1>
             <div class="login login-field-box">
                 <input type="text" class="login login-field" placeholder="Username"
                        v-model="username"
@@ -22,8 +21,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
   import router from '../router'
+  import vars from '../helpers/vars'
 
   export default {
     props: [],
@@ -35,7 +35,7 @@
     },
     methods: {
       login: function () {
-        axios.post('http://127.0.0.1:3000/api/auth/login', {
+        axios.post(vars.baseurl+'/auth/login', {
           username: this.username,
           password: this.password
         }).then((res) => {
