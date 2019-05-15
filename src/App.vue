@@ -7,7 +7,13 @@
 <script>
   export default {
     name: 'app',
-    components: {}
+    components: {},
+    created() {
+      let user = localStorage.getItem('user');
+      if (user) {
+        this.$store.dispatch('login', JSON.parse(user));
+      }
+    }
   }
 
   Array.prototype.asyncForEach = async function (callback) {

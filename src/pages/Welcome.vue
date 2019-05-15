@@ -5,6 +5,16 @@
     </div>
 </template>
 
+<script>
+  export default {
+    mounted() {
+      if (this.$store.state.user !== undefined) {
+        this.$router.push('/lobby');
+      }
+    }
+  }
+</script>
+
 <style>
     .header-card {
         min-height: 40%;

@@ -35,16 +35,15 @@
     },
     methods: {
       login: function () {
-        apiService.post(vars.baseurl+'/auth/login', {
+        apiService.post(vars.baseurl + '/auth/login', {
           username: this.username,
           password: this.password
         }).then((res) => {
-          console.log(res);
           this.$store.dispatch('login', {
             user: res.data.user,
             token: res.data.token
           });
-          router.push('/');
+          router.push('/lobby');
         });
       },
       redir_forgot: function () {

@@ -13,7 +13,7 @@
                            v-bind:class="{ error: this.error==='email' }"/>
                     <input type="text" class="register-field" placeholder="Username"
                            v-model="username"
-                            v-bind:class="{ error: this.error==='username' }"/>
+                           v-bind:class="{ error: this.error==='username' }"/>
                     <input type="password" class="register-field" placeholder="Password"
                            v-model="password"
                            v-bind:class="{ error: this.error==='password' }"/>

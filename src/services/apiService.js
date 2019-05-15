@@ -3,7 +3,7 @@ import vars from '../vars'
 
 class ApiService {
   constructor() {
-    this._axios = axios.create(vars.baseurl)
+    this._axios = axios.create({baseURL: vars.baseurl});
   }
 
   setAuthToken() {
