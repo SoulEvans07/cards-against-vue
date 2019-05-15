@@ -1,33 +1,51 @@
 <template>
-    <div>
-        <div class="register-box">
-            <!--<img class="logo" src="../assets/imgs/logo.png">-->
-            <!--<img class="logo" src="../assets/imgs/logo.png">-->
-            <h1 class="logo">TrackR</h1>
-            <!--<div class="register-text">Sign up to see photos and videos from your friends.</div>-->
-            <div>
-                <div class="register-field-box">
-                    <div v-if="flash" class="flash">{{this.flash}}</div>
-                    <input type="text" class="register-field" placeholder="Email"
-                           v-model="email"
-                           v-bind:class="{ error: this.error==='email' }"/>
-                    <input type="text" class="register-field" placeholder="Username"
-                           v-model="username"
-                           v-bind:class="{ error: this.error==='username' }"/>
-                    <input type="password" class="register-field" placeholder="Password"
-                           v-model="password"
-                           v-bind:class="{ error: this.error==='password' }"/>
-                    <input type="password" class="register-field" placeholder="Password confirmation"
-                           v-model="password_confirm"
-                           v-bind:class="{ error: this.error==='password' }"/>
-                </div>
-                <input type="button" value="Register" class="register-btn"
-                       @click="register"/>
-            </div>
+    <div class="container">
+        <div class="card black-card">
+            <div>Create an Account</div>
+            <br><br>
+            <div>Your username is <br><span>_______________________</span></div>
             <br>
+            <div>Your email address is <br><span>_________________________</span></div>
+            <br>
+            <div>Your password is <br><span>_________________________</span></div>
+            <br>
+            <div>Confirm your password<br><span>_________________________</span></div>
         </div>
-        <div class="register-box">
-            Have an account? <a class="register-link" @click="redir_login">Log in</a>
+
+        <div class="white-deck">
+            <div class="card bottom-card">
+                <div class="white-card"></div>
+            </div>
+            <div class="card second-card">
+                <div class="white-card">
+                    <div v-if="flash" class="flash">{{this.flash}}</div>
+                </div>
+            </div>
+            <div class="card name-card">
+                <div class="white-card" v-bind:class="{ error: this.error==='username' }">
+                    <input type="text" placeholder="Username" v-model="username">
+                </div>
+            </div>
+            <div class="card email-card">
+                <div class="white-card" v-bind:class="{ error: this.error==='email' }">
+                    <input type="text" placeholder="Email" v-model="email">
+                </div>
+            </div>
+            <div class="card password-card">
+                <div class="white-card" v-bind:class="{ error: this.error==='password' }">
+                    <input type="password" placeholder="Password" v-model="password">
+                </div>
+            </div>
+            <div class="card password-conf-card">
+                <div class="white-card" v-bind:class="{ error: this.error==='password' }">
+                    <input type="password" placeholder="Password confirmation" v-model="password_confirm">
+                </div>
+            </div>
+            <div class="card register-card">
+                <div class="white-card">
+                    <input type="button" class="register-btn" value="Register" @click="register">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -61,7 +79,7 @@
           email: this.email,
           password: this.password
         }).then(res => {
-          router.push('/login');
+          router.push('/');
         }).catch(err => {
           this.error = err.response.data.field;
           this.flash = err.response.data.message;
@@ -75,64 +93,128 @@
 </script>
 
 <style>
-    .logo {
-        font-family: 'Roboto', sans-serif;
-        font-weight: bold;
-        text-align: center;
-        font-size: 30px;
-        width: 80%;
-        margin: 10px auto 10px;
-    }
-
     .flash {
         color: red;
         font-size: 12px;
     }
 
-    .register-box {
-        background-color: white;
-        margin: 30px auto auto;
-        padding: 20px;
-        width: 300px;
-        border: solid 1px #bebebe;
-        border-radius: 3px;
-        text-align: center;
+    div.error {
+        border-color: rgba(237, 0, 0, 0.50);
+        box-shadow: 0 0 10px 0 rgba(237, 0, 0, 0.50);
     }
 
-    .register-text {
+    .container {
+        display: flex;
+        flex-direction: row;
+        padding: 40px 0;
+        justify-content: center;
+        background: #333333;
+    }
+
+    .white-deck {
+        margin: 0 20px;
+    }
+
+    .card {
+        position: relative;
+        border-radius: 10px;
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 420px;
+        max-height: 420px;
+        box-shadow: -15px 15px 0 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .black-card {
+        top: 15px;
+        margin: 0 20px;
+        border: 1px solid black;
+        border-radius: 10px;
+        background: black;
+        color: white;
+        font-size: 20px;
         font-weight: bold;
-        color: #8d8d8d;
+        padding: 15px;
+        transform: rotate(-1deg);
     }
 
-    .register-field-box {
-        margin: 10px 0 15px 0;
+    .white-card {
+        width: 300px;
+        height: 420px;
+        position: relative;
+        border-radius: 10px;
+        border: 1px solid #bebebe;
+        padding: 15px;
+        background: white;
     }
 
-    .register-field {
-        width: 80%;
-        padding: 7px;
-        margin: 5px;
-        background-color: #e9e9e9;
-        border: solid 1px #dbdbdb;
-        border-radius: 2px;
+    .white-card * {
+        font-size: 20px;
     }
 
-    .register-field.error {
-        border-color: #ed0000;
-        box-shadow: 0 0 2px 0 rgba(237, 0, 0, 0.50);
+    .white-card input {
+        width: 100%;
+        outline: none;
+    }
+
+    .white-card input[type="text"], .white-card input[type="password"] {
+        border: none;
+    }
+
+    .bottom-card {
+        transform: rotate(-2deg);
+    }
+
+    .second-card {
+        top: -390px;
+        transform: rotate(3deg);
+    }
+
+    .name-card {
+        top: -750px;
+        left: -5px;
+        transform: rotate(-2deg);
+    }
+
+    .email-card {
+        top: -1100px;
+        left: 5px;
+        transform: rotate(1deg);
+    }
+
+    .password-card {
+        top: -1455px;
+        left: 7px;
+        transform: rotate(-2deg);
+    }
+
+    .password-conf-card {
+        top: -1810px;
+        left: 5px;
+        transform: rotate(-3deg);
+    }
+
+    .register-card {
+        top: -2150px;
+        left: 1px;
+        transform: rotate(1deg);
     }
 
     .register-btn {
-        width: 80%;
-        background-color: #337ab7;
-        color: white;
-        border: none;
-        padding: 5px;
-        border-radius: 2px;
+        margin: 5px 0 0 0;
+        background: #191919;
+        color: #ffffff;
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 10px;
     }
 
-    .register-link {
-        color: #2e6da4;
-        cursor: pointer;
+    .register-btn:hover {
+        background: #222222;
     }
+
+    .register-btn:active {
+        background: #000000;
+    }
+
 </style>

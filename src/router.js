@@ -15,16 +15,17 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
-    { path: '/login', component: login },
-    { path: '/register', component: register },
-    { path: '/forgotten', component: forgotten },
+
     {
       path: '/',
       component: dashboard,
       redirect: '/welcome',
       children: [
-        { path: 'welcome', component: welcome },
-        { path: 'lobby', component: lobby }
+        { path: 'login', name: 'login', component: login },
+        { path: 'register', name: 'register', component: register },
+        { path: 'forgotten', name: 'forgotten', component: forgotten },
+        { path: 'welcome', name: 'welcome', component: welcome },
+        { path: 'lobby', name: 'lobby', component: lobby }
       ]
     },
 
