@@ -23,7 +23,7 @@
 <script>
   import axios from 'axios'
   import router from '../router'
-  import vars from '../helpers/vars'
+  import vars from '../vars'
 
   export default {
     props: [],

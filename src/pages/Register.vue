@@ -7,15 +7,18 @@
             <!--<div class="register-text">Sign up to see photos and videos from your friends.</div>-->
             <div>
                 <div class="register-field-box">
+                    <div v-if="flash" class="flash">{{this.flash}}</div>
                     <input type="text" class="register-field" placeholder="Email"
                            v-model="email"/>
                     <input type="text" class="register-field" placeholder="Username"
-                           v-model="username"/>
+                           v-model="username"
+                            v-bind:class="{ error: this.error==='username' }"/>
                     <input type="password" class="register-field" placeholder="Password"
-                           v-model="password"/>
+                           v-model="password"
+                           v-bind:class="{ error: this.error==='password' }"/>
                     <input type="password" class="register-field" placeholder="Password confirmation"
-                           v-model="password_confirm"/>
-                    <div v-if="invalid">Invalid password</div>
+                           v-model="password_confirm"
+                           v-bind:class="{ error: this.error==='password' }"/>
                 </div>
                 <input type="button" value="Register" class="register-btn"
                        @click="register"/>
@@ -29,8 +32,9 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import apiService from '../services/apiService'
   import router from '../router'
+  import vars from '../vars'
 
   export default {
     data() {
@@ -39,21 +43,27 @@
         email: null,
         password: null,
         password_confirm: null,
-        invalid: false
+        error: null,
+        flash: null
       }
     },
     methods: {
       register: function () {
-        this.invalid = this.password !== this.password_confirm;
-        if (this.invalid)
+        if (this.password !== this.password_confirm) {
+          this.error = "password";
+          this.flash = "Passwords doesn't match!";
           return;
+        }
 
-        axios.post('http://127.0.0.1:3000/api/auth/register', {
+        apiService.post(vars.baseurl + '/auth/register', {
           username: this.username,
           email: this.email,
           password: this.password
-        }).then(() => {
+        }).then(res => {
           router.push('/login');
+        }).catch(err => {
+          this.error = err.response.data.field;
+          this.flash = err.response.data.message;
         });
       },
       redir_login: function () {
@@ -71,6 +81,11 @@
         font-size: 30px;
         width: 80%;
         margin: 10px auto 10px;
+    }
+
+    .flash {
+        color: red;
+        font-size: 12px;
     }
 
     .register-box {
@@ -101,8 +116,9 @@
         border-radius: 2px;
     }
 
-    .register-field .error {
-        border-color: red;
+    .register-field.error {
+        border-color: #ed0000;
+        box-shadow: 0 0 2px 0 rgba(237, 0, 0, 0.50);
     }
 
     .register-btn {
