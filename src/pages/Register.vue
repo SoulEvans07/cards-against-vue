@@ -9,7 +9,8 @@
                 <div class="register-field-box">
                     <div v-if="flash" class="flash">{{this.flash}}</div>
                     <input type="text" class="register-field" placeholder="Email"
-                           v-model="email"/>
+                           v-model="email"
+                           v-bind:class="{ error: this.error==='email' }"/>
                     <input type="text" class="register-field" placeholder="Username"
                            v-model="username"
                             v-bind:class="{ error: this.error==='username' }"/>
