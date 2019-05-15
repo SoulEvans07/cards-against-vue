@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import apiService from '../services/apiService'
   import router from '../router'
   import vars from '../vars'
 
@@ -35,7 +35,7 @@
     },
     methods: {
       login: function () {
-        axios.post(vars.baseurl+'/auth/login', {
+        apiService.post(vars.baseurl+'/auth/login', {
           username: this.username,
           password: this.password
         }).then((res) => {
@@ -44,7 +44,7 @@
             user: res.data.user,
             token: res.data.token
           });
-          router.push('/dashboard');
+          router.push('/');
         });
       },
       redir_forgot: function () {
