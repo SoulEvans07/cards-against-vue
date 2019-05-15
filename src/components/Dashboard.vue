@@ -2,8 +2,13 @@
     <div>
         <div class="navbar">
             <div class="filler"></div>
-            <div class="right-btn" @click="redir_register">Register</div>
-            <div class="right-btn" @click="redir_login">Login</div>
+            <template v-if="this.$store.state.user !== null">
+                <div class="right-btn" @click="logout">Logout</div>
+            </template>
+            <template v-if="this.$store.state.user === null">
+                <div class="right-btn" @click="redir_register">Register</div>
+                <div class="right-btn" @click="redir_login">Login</div>
+            </template>
         </div>
         <router-view class="router"/>
     </div>
@@ -18,7 +23,13 @@
     data() {
       return {};
     },
+    mounted() {
+    },
     methods: {
+      logout: function () {
+        this.$store.dispatch('logout');
+        this.$router.push('/welcome');
+      },
       redir_login: function () {
         router.push('/login');
       },

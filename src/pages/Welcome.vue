@@ -8,7 +8,7 @@
 <script>
   export default {
     mounted() {
-      if (this.$store.state.user !== undefined) {
+      if (this.$store.state.user !== null) {
         this.$router.push('/lobby');
       }
     }

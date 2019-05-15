@@ -17,6 +17,10 @@
       }
     },
     mounted() {
+      if (this.$store.state.user === null) {
+        this.$router.push('/welcome');
+        return;
+      }
       apiService.get('/users/list').then(res => {
         this.users = res.data;
       });
