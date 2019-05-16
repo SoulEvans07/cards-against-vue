@@ -89,6 +89,8 @@
             token: res.data.token
           });
           router.push('/lobby');
+        }).catch(err => {
+          this.flash = err.response.data.message;
         });
       },
       redir_forgot: function () {
