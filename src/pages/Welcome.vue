@@ -15,7 +15,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .header-card {
         min-height: 40%;
         background: #222222;

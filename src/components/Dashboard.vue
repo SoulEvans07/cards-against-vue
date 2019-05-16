@@ -49,7 +49,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .navbar {
         background-color: #000000;
         min-height: 45px;

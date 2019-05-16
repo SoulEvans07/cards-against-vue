@@ -92,7 +92,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .flash {
         color: red;
         font-size: 12px;
@@ -112,7 +112,7 @@
     }
 
     .white-deck {
-        margin: 0 20px;
+        margin: 0 60px;
     }
 
     .card {
@@ -127,8 +127,8 @@
 
     .black-card {
         top: 15px;
-        margin: 0 20px;
-        border: 1px solid black;
+        margin: 0 60px;
+        border: 1px solid #2d2d2d;
         border-radius: 10px;
         background: black;
         color: white;
