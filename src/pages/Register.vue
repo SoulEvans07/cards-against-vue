@@ -125,7 +125,20 @@
         box-shadow: -15px 15px 0 0 rgba(0, 0, 0, 0.25);
     }
 
+
+    @keyframes throw {
+        0%   { transform: translate(0, 800px) rotate(-1deg) scale(1.3, 1.3); }
+        /*25%   { transform: translate(200px, 1000px) rotate(-1deg); }*/
+        75%   { transform: translate(0, 150px) rotate(-1deg) scale(1.1, 1.1); }
+        /*75%   { transform: translate(50px, 1000px) rotate(-1deg); }*/
+        100%  { transform: translate(0, 0) rotate(-1deg) scale(1, 1); }
+    }
+
     .black-card {
+        animation-name: throw;
+        animation-duration: 1s;
+        /*animation-timing-function: cubic-bezier(0.8, 0.4, 0.15, 0);*/
+
         top: 15px;
         margin: 0 60px;
         border: 1px solid #2d2d2d;
@@ -136,6 +149,7 @@
         font-weight: bold;
         padding: 15px;
         transform: rotate(-1deg);
+        transform-origin: 0 0;
     }
 
     .white-card {
