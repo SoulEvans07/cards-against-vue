@@ -6,18 +6,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
-    players: null
+    rooms: null
   },
   mutations: {
     setUser(state, data) {
       state.user = data;
     },
 
-    setPlayers(state, data){
-      state.players = data;
+    setRoomList(state, data){
+      state.rooms = data;
     }
   },
   actions: {
+    refreshRoomList({commit}, data){
+      commit('setRoomList', data);
+    },
     login({ commit }, data) {
       commit('setUser', data);
       localStorage.setItem('user', JSON.stringify(data));

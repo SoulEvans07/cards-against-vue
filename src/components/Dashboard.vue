@@ -89,4 +89,8 @@
     .profile {
         flex-grow: 0;
     }
+
+    .router {
+        padding: 20px;
+    }
 </style>
