@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import _ from 'lodash'
 
+import apiService from './services/apiService'
 import store from './store'
 import notFound from './pages/404'
 import login from './pages/Login'
@@ -10,12 +10,12 @@ import forgotten from './pages/Forgotten'
 import dashboard from './components/Dashboard'
 import welcome from './pages/Welcome'
 import lobby from './pages/Lobby'
+import room from './pages/Room'
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
-
     {
       path: '/',
       component: dashboard,
@@ -25,7 +25,8 @@ const router = new VueRouter({
         { path: 'register', name: 'register', component: register },
         { path: 'forgotten', name: 'forgotten', component: forgotten },
         { path: 'welcome', name: 'welcome', component: welcome },
-        { path: 'lobby', name: 'lobby', component: lobby }
+        { path: 'lobby', name: 'lobby', component: lobby },
+        { path: 'rooms/:id', name: 'room', component: room }
       ]
     },
 
@@ -33,33 +34,20 @@ const router = new VueRouter({
   ]
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path.startsWith('/dashboard')) {
-//     if (!isAuthenticated()) {
-//       next('/login');
-//     } else {
-//       next();
-//     }
-//   } else {
-//     if (!to.path.startsWith('/dashboard') && isAuthenticated()) {
-//       next('/dashboard');
-//     } else {
-//       next();
-//     }
-//   }
-// });
-//
-// const isAuthenticated = () => {
-//   let user = store.state.user;
-//   if (_.isEmpty(user) || !user) {
-//     const user = JSON.parse(localStorage.getItem('user'));
-//     if (user) {
-//       console.log("user logged in: " + JSON.stringify(user));
-//       store.dispatch('login', user);
-//     }
-//   }
-//
-//   return !_.isEmpty(user) && user;
-// };
+router.beforeEach((to, from, next) => {
+  if (!to.path.match('/welcome|/login|/register')) {
+    if (isAuthenticated()) {
+      return next();
+    } else {
+      return next('/welcome');
+    }
+  } else {
+    return next();
+  }
+});
+
+const isAuthenticated = function() {
+  return store.state.user !== null;
+};
 
 export default router;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="room in this.$store.state.rooms">
+            <li v-for="room in this.$store.state.rooms" @click="redir_room(room.id)">
                 <div><b>name:</b> {{room.name}}</div>
                 <div><b>visiblity:</b> {{room.visibility === 0 ? 'public' : 'unlisted'}}</div>
                 <div><b>creator:</b> {{room.creator.username}}</div>
@@ -47,20 +47,20 @@
           this.new_room.visibility = 0;
         }).catch(err => {
           console.error(err);
-        })
-      },
-      refreshRoomList: function () {
-        apiService.get('/rooms/list').then(res => {
-          this.$store.dispatch('refreshRoomList', res.data);
         });
+      },
+      redir_room: function (id) {
+        this.$router.push('/rooms/' + id);
       }
     },
     mounted() {
-      if (this.$store.state.user === null) {
-        this.$router.push('/welcome');
-        return;
-      }
-      this.refreshRoomList();
+      // if (this.$store.state.user === null) {
+      //   this.$router.push('/welcome');
+      //   return;
+      // }
+      apiService.get('/rooms/list').then(res => {
+        this.$store.dispatch('refreshRoomList', res.data);
+      });
     }
   }
 </script>
